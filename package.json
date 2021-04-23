@@ -1,5 +1,6 @@
 {
   "name": "tp4",
+  "type": "module",
   "version": "1.0.0",
   "description": "## Servidores Avanzados en Node.js",
   "main": "server.js",
