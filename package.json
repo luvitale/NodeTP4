@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/luvitale/NodeTP4/issues"
   },
-  "homepage": "https://github.com/luvitale/NodeTP4#readme"
+  "homepage": "https://github.com/luvitale/NodeTP4#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }
