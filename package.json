@@ -1,0 +1,19 @@
+{
+  "name": "tp4",
+  "version": "1.0.0",
+  "description": "## Servidores Avanzados en Node.js",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/luvitale/NodeTP4.git"
+  },
+  "author": "Luciano Nahuel Vitale",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/luvitale/NodeTP4/issues"
+  },
+  "homepage": "https://github.com/luvitale/NodeTP4#readme"
+}
