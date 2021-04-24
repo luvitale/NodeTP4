@@ -1,0 +1,17 @@
+html,
+.body,
+div.container {
+  background-color: black;
+}
+
+div.jumbotron {
+  background-color: darkslategray;
+}
+
+h1 {
+  color: darkorange;
+}
+
+label {
+  color: white;
+}

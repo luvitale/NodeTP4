@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formulario para ingresar producto</title>
+  <link rel="stylesheet" href="css/form.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+    integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+</head>
+<body class="body">
+  <div class="container mt-3">
+    <div class="jumbotron">
+      <h1>Ingresá los datos del producto</h1>
+      <br>
+      <form action="/ingreso" method="post">
+        <div class="form-group">
+          <label for="nombre">Nombre</label>
+          <input type="text" id="nombre" class="form-control" name="nombre">
+        </div>
+
+        <div class="form-group">
+          <label for="precio">Precio</label>
+          <input type="text" id="precio" class="form-control" name="precio">
+        </div>
+        
+        <div class="form-group">
+          <label for="descripcion">Descripción</label>
+          <input type="text" id="descripcion" class="form-control" name="descripcion">
+        </div>
+        
+        <div class="form-group">
+          <label for="foto">Foto</label>
+          <input type="text" id="foto" class="form-control" name="foto">
+        </div>
+
+        <button class="btn btn-success mt-3 mb-5">Enviar</button>
+      </form>
+    </div>
+  </div>
+</body>
+</html>
