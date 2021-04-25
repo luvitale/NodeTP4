@@ -9,7 +9,7 @@ html
       div(class="jumbotron")
         h1="Editar el producto: " + id
         br
-        form(action=`/edit/${id}?_method=PUT` method="post")
+        form(action=`/editar/${id}?_method=PUT` method="post")
           div(class="form-group")
             label(for="nombre")="Nombre"
             input(type="text" id="nombre" class="form-control" name="nombre" placeholder=product.nombre required="required")

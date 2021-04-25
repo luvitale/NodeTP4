@@ -30,9 +30,11 @@ block table
               img(src=product.foto alt=product.nombre)
             td
               a(class="btn btn-inline btn-warning" href=`/editar/${product._id}`)="Editar"
-              a(class="btn btn-inline btn-danger" href="/borrar")="Borrar"
+              a(class="btn btn-inline btn-danger" data-toggle="modal" data-target="#deleteModal" data-product-id=product._id)="Borrar"
 
   else
     h2(class="alert alert-danger")="No hay productos para listar"
 
   a(class="btn btn-success btn-add-product" href="/")="Agregar producto"
+
+  include delete-modal.pug

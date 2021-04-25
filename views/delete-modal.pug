@@ -1,0 +1,14 @@
+// Modal
+#deleteModal.modal.fade(tabindex='-1' role='dialog' aria-labelledby='deleteModalTitle' aria-hidden='true')
+  .modal-dialog.modal-dialog-centered(role='document')
+    .modal-content
+      .modal-header
+        h5#deleteModalTitle.modal-title Borrar producto
+        button.close(type='button' data-dismiss='modal' aria-label='Cerrar')
+          span(aria-hidden='true') &times;
+      .modal-body
+        | ¿Estás seguro de eliminar el producto?
+      .modal-footer
+        form(action='' method="post" id="delete-form")
+          button.btn.btn-secondary(type='button' data-dismiss='modal') Cerrar
+          button.btn.btn-primary.btn-danger(type='submit') Borrar
