@@ -4,7 +4,7 @@ import email from '../controllers/email.js'
 import fs from 'fs'
 
 let addedProducts = 0
-const quantity = 10
+const quantity = 1
 
 const emailFile = process.cwd() + '/correo.dat'
 
@@ -23,7 +23,7 @@ const receiveAndProcessProduct = async product => {
     })
 
     if (++addedProducts == quantity) {
-      const requestorNoty = await email.sendMail2Requestor(await getEmail())
+      const requestorNoty = await email.sendMail2Requestor(await getEmail(), await getProducts())
       addedProducts = 0
     }
 

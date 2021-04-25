@@ -2,12 +2,13 @@
 // Nodemailer
 import nodemailer from 'nodemailer'
 import dotenv from 'dotenv-safe'
+import {pugEngine} from 'nodemailer-pug-engine'
 
 dotenv.config()
 
 /** Email Functions Handler */
 // REQUESTOR Noty Email
-const sendMail2Requestor = async requestorEmail => {
+const sendMail2Requestor = async (requestorEmail, products) => {
   /** Env Variables */
   const {
       // Gmail's Email (Gmail Access)
@@ -34,11 +35,17 @@ const sendMail2Requestor = async requestorEmail => {
     }
   })
 
+  transporter.use('compile', pugEngine({
+    templateDir: process.cwd() + '/views',
+    pretty: true
+  }))
+
   return await transporter.sendMail({
-      from: GMAIL_EMAIL,
+      from: `${process.env.SENDER_NAME} <${SENDER_EMAIL}>`,
       to: requestorEmail,
-      subject: 'Message',
-      text: 'I hope this message gets through!',
+      template: 'email-list',
+      ctx: { products },
+      subject: 'Lista de productos',
       auth: {
         user: GMAIL_EMAIL,
         refreshToken: REFRESH_TOKEN,
