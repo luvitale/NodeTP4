@@ -18,6 +18,8 @@
   },
   "homepage": "https://github.com/luvitale/NodeTP4#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "dotenv-safe": "^8.2.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.12.5"
   }
 }
