@@ -35,3 +35,8 @@ td {
 .table td {
   vertical-align: middle;
 }
+
+a.btn-inline {
+  display: inline;
+  margin: 0 0.5em;
+}

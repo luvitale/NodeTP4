@@ -2,6 +2,7 @@ import express from 'express'
 import tasks from './modules/tasks.js'
 import mongoose from 'mongoose'
 import dotenv from 'dotenv-safe'
+import methodOverride from 'method-override'
 
 dotenv.config()
 
@@ -10,6 +11,9 @@ const app = express()
 app.use(express.urlencoded({extended: true}))
 app.use(express.json())
 app.use(express.static('public'))
+
+// FORM Methods
+app.use(methodOverride('_method'))
 
 app.set('views', './views')
 app.set('view engine', 'pug')
@@ -42,6 +46,31 @@ app.get('/listar/:id?', async (req, res) => {
     err => {
       console.log(`Error en lectura de productos: ${err}`)
       res.render('list', { products: {} })
+    }
+  )
+})
+
+
+app.get('/editar/:id', async (req, res) => {
+  let {id} = req.params
+
+  let [product] = await tasks.getProducts(id)
+
+  console.log("Producto ---")
+  console.log(product)
+  res.render('edit-form', { id, product })
+})
+
+app.put('/editar/:id', async (req, res) => {
+  let {id} = req.params
+  let product = req.body
+
+  await tasks.updateProduct(id, product).then(
+    res.redirect('/listar?state=modified')
+  ).catch(
+    err => {
+      console.log(`Error al modificar producto: ${err}`)
+      res.redirect('/listar')
     }
   )
 })

@@ -17,3 +17,7 @@ h1 {
 label {
   color: white;
 }
+
+a.btn {
+  margin: 0 1em;
+}

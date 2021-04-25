@@ -41,7 +41,21 @@ const getProducts = async id => {
   return result
 }
 
+const updateProduct = async (id, product) => {
+  let validation = productValidation.validate(product)
+
+  if (validation.result) {
+    let rta = await productModel.updateOne({_id: id}, {$set: product})
+    return rta
+  }
+
+  else {
+    return validation.error
+  }
+}
+
 export default {
   receiveAndProcessProduct,
-  getProducts
+  getProducts,
+  updateProduct
 }

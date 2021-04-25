@@ -7,6 +7,8 @@ block table
     div(id="product-state" class="alert alert-success")="Producto ingresado satisfactoriamente"
   else if state == 'danger'
     div(id="product-state" class="alert alert-danger")="El producto no pudo ser ingresado"
+  else if state == 'modified'
+    div(id="product-state" class="alert alert-info")="Producto modificado satisfactoriamente"
 
   if products.length
     div(class="table-responsive")
@@ -17,6 +19,7 @@ block table
             th="Precio"
             th="Descripción"
             th="Foto"
+            th="Acciones"
         tbody
         each product in products
           tr(class="bg-success")
@@ -25,6 +28,9 @@ block table
             td=product.descripcion
             td
               img(src=product.foto alt=product.nombre)
+            td
+              a(class="btn btn-inline btn-warning" href=`/editar/${product._id}`)="Editar"
+              a(class="btn btn-inline btn-danger" href="/borrar")="Borrar"
 
   else
     h2(class="alert alert-danger")="No hay productos para listar"
