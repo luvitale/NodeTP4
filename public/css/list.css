@@ -1,0 +1,33 @@
+head,
+body {
+  background-color: black;
+}
+
+head,
+body,
+table {
+  text-align: center;
+}
+
+div.table-responsive {
+  width: 90%;
+  margin: 0 auto;
+}
+
+h1.product-header {
+  color: darkred;
+  margin: 0.5em auto;
+}
+
+tr.product-thead-tr {
+  color: red;
+}
+
+td {
+  color: linen;
+}
+
+.table th,
+.table td {
+  vertical-align: middle;
+}

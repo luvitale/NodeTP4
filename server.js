@@ -11,6 +11,9 @@ app.use(express.urlencoded({extended: true}))
 app.use(express.json())
 app.use(express.static('public'))
 
+app.set('views', './views')
+app.set('view engine', 'pug')
+
 app.get('/', (req, res) => {
   res.sendFile(process.cwd() + '/public/form.html')
 })
@@ -19,6 +22,16 @@ app.post('/ingreso', (req, res) => {
   const product = req.body
 
   res.send(tasks.receiveAndProcessProduct(product))
+})
+
+app.get('/listar/:id?', async (req, res) => {
+  let {id} = req.params
+
+  await tasks.getProducts(id).then(
+    products => res.render('list', { products })
+  ).catch(
+    err => res.render('list', { products: {} })
+  )
 })
 
 mongoose.connect(`mongodb+srv://${process.env.USER_DB}:${process.env.PASS_DB}@cluster0.gvsdk.mongodb.net/${process.env.MONGO_DB}?retryWrites=true&w=majority`, {

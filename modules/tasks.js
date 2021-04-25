@@ -21,6 +21,27 @@ const receiveAndProcessProduct = product => {
   }
 }
 
+const getProducts = async id => {
+  let query = id ? {_id: id} : {}
+
+  let result = await productModel.find(query).then(
+    products => {
+      products.forEach(product => {
+        console.log(product)
+      })
+
+      return products
+    }
+  ).catch(
+    err => {
+      throw new Error(`Error en lectura de productos: ${err}`)
+    }
+  )
+
+  return result
+}
+
 export default {
-  receiveAndProcessProduct
+  receiveAndProcessProduct,
+  getProducts
 }
