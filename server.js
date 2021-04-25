@@ -27,21 +27,26 @@ app.post('/ingreso', (req, res) => {
 
   try {
     tasks.receiveAndProcessProduct(product)
-    res.redirect('/listar?state=success')
+    res.redirect('/listar?state=added')
   }
 
   catch(err) {
     console.log(`Error en escritura de producto: ${err}`)
-    res.redirect('/listar?state=danger')
+    res.redirect('/listar?state=add_error')
   }
 })
 
 app.get('/listar/:id?', async (req, res) => {
   let {id} = req.params
   let {state} = req.query
+  console.log(state)
 
   await tasks.getProducts(id).then(
-    products => res.render('list', { products, state })
+    products => {
+      let obj = { products }
+      obj[state] = true
+      res.render('list', obj)
+    }
   ).catch(
     err => {
       console.log(`Error en lectura de productos: ${err}`)
@@ -56,8 +61,6 @@ app.get('/editar/:id', async (req, res) => {
 
   let [product] = await tasks.getProducts(id)
 
-  console.log("Producto ---")
-  console.log(product)
   res.render('edit-form', { id, product })
 })
 
@@ -73,6 +76,14 @@ app.put('/editar/:id', async (req, res) => {
       res.redirect('/listar')
     }
   )
+})
+
+app.delete('/borrar/:id', async (req, res) => {
+  let {id} = req.params
+
+  let rta = await tasks.deleteProduct(id)
+
+  res.redirect('/listar?state=deleted')
 })
 
 mongoose.connect(`mongodb+srv://${process.env.USER_DB}:${process.env.PASS_DB}@cluster0.gvsdk.mongodb.net/${process.env.MONGO_DB}?retryWrites=true&w=majority`, {

@@ -54,8 +54,11 @@ const updateProduct = async (id, product) => {
   }
 }
 
+const deleteProduct = async id => await productModel.deleteOne({_id: id})
+
 export default {
   receiveAndProcessProduct,
   getProducts,
-  updateProduct
+  updateProduct,
+  deleteProduct
 }

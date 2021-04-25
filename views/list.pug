@@ -3,12 +3,14 @@ extends layout
 block table
   h1(class="product-header")="Productos"
 
-  if state == 'success'
+  if added
     div(id="product-state" class="alert alert-success")="Producto ingresado satisfactoriamente"
-  else if state == 'danger'
+  else if add_error
     div(id="product-state" class="alert alert-danger")="El producto no pudo ser ingresado"
-  else if state == 'modified'
+  else if modified
     div(id="product-state" class="alert alert-info")="Producto modificado satisfactoriamente"
+  else if deleted
+    div(id='product-state' class="alert alert-warning")="Producto borrado satisfactoriamente"
 
   if products.length
     div(class="table-responsive")

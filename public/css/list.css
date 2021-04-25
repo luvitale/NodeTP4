@@ -40,3 +40,7 @@ a.btn-inline {
   display: inline;
   margin: 0 0.5em;
 }
+
+img {
+  max-width: 250;
+}
