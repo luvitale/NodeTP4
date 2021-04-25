@@ -3,6 +3,8 @@ import tasks from './modules/tasks.js'
 import mongoose from 'mongoose'
 import dotenv from 'dotenv-safe'
 
+dotenv.config()
+
 const app = express()
 
 app.use(express.urlencoded({extended: true}))
@@ -18,8 +20,6 @@ app.post('/ingreso', (req, res) => {
 
   res.send(tasks.receiveAndProcessProduct(product))
 })
-
-dotenv.config()
 
 mongoose.connect(`mongodb+srv://${process.env.USER_DB}:${process.env.PASS_DB}@cluster0.gvsdk.mongodb.net/${process.env.MONGO_DB}?retryWrites=true&w=majority`, {
   useNewUrlParser: true,
