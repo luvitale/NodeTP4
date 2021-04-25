@@ -1,7 +1,16 @@
 import { product as productModel } from '../models/products.js'
 import productValidation from '../validations/products.js'
+import email from '../controllers/email.js'
+import fs from 'fs'
 
-const receiveAndProcessProduct = product => {
+let addedProducts = 0
+const quantity = 10
+
+const emailFile = process.cwd() + '/correo.dat'
+
+const getEmail = async () => await fs.promises.readFile(emailFile, 'utf-8')
+
+const receiveAndProcessProduct = async product => {
   let validation = productValidation.validate(product)
 
   if (validation.result) {
@@ -12,6 +21,11 @@ const receiveAndProcessProduct = product => {
 
       console.log('Producto ingresado')
     })
+
+    if (++addedProducts == quantity) {
+      const requestorNoty = await email.sendMail2Requestor(await getEmail())
+      addedProducts = 0
+    }
 
     return product
   }
@@ -56,9 +70,12 @@ const updateProduct = async (id, product) => {
 
 const deleteProduct = async id => await productModel.deleteOne({_id: id})
 
+const setEmail = async email => await fs.promises.writeFile(emailFile, email)
+
 export default {
   receiveAndProcessProduct,
   getProducts,
   updateProduct,
-  deleteProduct
+  deleteProduct,
+  setEmail
 }

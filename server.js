@@ -15,6 +15,8 @@ app.use(express.static('public'))
 // FORM Methods
 app.use(methodOverride('_method'))
 
+;(async () => await tasks.setEmail(process.env.INITIAL_EMAIL))()
+
 app.set('views', './views')
 app.set('view engine', 'pug')
 
@@ -22,11 +24,11 @@ app.get('/', (req, res) => {
   res.sendFile(process.cwd() + '/public/form.html')
 })
 
-app.post('/ingreso', (req, res) => {
+app.post('/ingreso', async (req, res) => {
   const product = req.body
 
   try {
-    tasks.receiveAndProcessProduct(product)
+    await tasks.receiveAndProcessProduct(product)
     res.redirect('/listar?state=added')
   }
 
@@ -55,6 +57,17 @@ app.get('/listar/:id?', async (req, res) => {
   )
 })
 
+app.get('/set-correo', (req, res) => {
+  res.sendFile(process.cwd() + '/public/email.html')
+})
+
+app.post('/set-correo', async (req, res) => {
+  let {correo} = req.body
+
+  await tasks.setEmail(correo)
+
+  res.redirect('/listar')
+})
 
 app.get('/editar/:id', async (req, res) => {
   let {id} = req.params

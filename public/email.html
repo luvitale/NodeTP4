@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formulario para ingresar producto</title>
+  <link rel="stylesheet" href="css/form.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+    integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+</head>
+
+<body class="body">
+  <div class="container mt-3">
+    <div class="jumbotron">
+      <h1>Ingresá la casilla a la que se debe enviar la información</h1>
+      <br>
+      <form action="/set-correo" method="post">
+        <div class="form-group">
+          <label for="correo">Correo electrónico</label>
+          <input type="email" id="correo" class="form-control" name="correo" required>
+        </div>
+
+        <button class="btn btn-default btn-primary btn-success mt-3 mb-5" type="submit">Enviar</button>
+
+        <a class="btn btn-info mt-3 mb-5" href="/listar">Ir a listado</a>
+      </form>
+    </div>
+  </div>
+</body>
+
+</html>
