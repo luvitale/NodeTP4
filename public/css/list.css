@@ -16,6 +16,10 @@ div.table-responsive {
 
 h1.product-header {
   color: darkred;
+}
+
+h1.product-header,
+a.btn-add-product {
   margin: 0.5em auto;
 }
 

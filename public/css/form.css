@@ -2,10 +2,12 @@ html,
 .body,
 div.container {
   background-color: black;
+  margin-bottom: 0;
 }
 
 div.jumbotron {
   background-color: darkslategray;
+  margin-bottom: 0;
 }
 
 h1 {

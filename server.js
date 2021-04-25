@@ -21,16 +21,28 @@ app.get('/', (req, res) => {
 app.post('/ingreso', (req, res) => {
   const product = req.body
 
-  res.send(tasks.receiveAndProcessProduct(product))
+  try {
+    tasks.receiveAndProcessProduct(product)
+    res.redirect('/listar?state=success')
+  }
+
+  catch(err) {
+    console.log(`Error en escritura de producto: ${err}`)
+    res.redirect('/listar?state=danger')
+  }
 })
 
 app.get('/listar/:id?', async (req, res) => {
   let {id} = req.params
+  let {state} = req.query
 
   await tasks.getProducts(id).then(
-    products => res.render('list', { products })
+    products => res.render('list', { products, state })
   ).catch(
-    err => res.render('list', { products: {} })
+    err => {
+      console.log(`Error en lectura de productos: ${err}`)
+      res.render('list', { products: {} })
+    }
   )
 })
 
