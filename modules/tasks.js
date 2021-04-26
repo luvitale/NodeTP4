@@ -4,7 +4,7 @@ import email from '../controllers/email.js'
 import fs from 'fs'
 
 let addedProducts = 0
-const quantity = 10
+const quantity = 1
 
 const emailFile = process.cwd() + '/correo.dat'
 
