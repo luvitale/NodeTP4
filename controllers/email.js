@@ -1,14 +1,30 @@
-/** Dependencies */
 // Nodemailer
 import nodemailer from 'nodemailer'
 import dotenv from 'dotenv-safe'
-import {pugEngine} from 'nodemailer-pug-engine'
+import pug from 'pug'
+import fs from 'fs'
 
 dotenv.config()
 
+const emailFile = process.cwd() + '/correo.dat'
+
+;(async () => {
+  try {
+    await fs.promises.access(emailFile)
+  }
+
+  catch (error) {
+    return await setEmail(process.env.INITIAL_EMAIL)
+  }
+})()
+
+const getEmail = async () => await fs.promises.readFile(emailFile, 'utf-8')
+
+const setEmail = async email => await fs.promises.writeFile(emailFile, email)
+
 /** Email Functions Handler */
 // REQUESTOR Noty Email
-const sendMail2Requestor = async (requestorEmail, products, host) => {
+const sendMail2Requestor = async products => {
   /** Env Variables */
   const {
       // Gmail's Email (Gmail Access)
@@ -21,6 +37,7 @@ const sendMail2Requestor = async (requestorEmail, products, host) => {
       CLIENT_SECRET = process.env.GMAIL_CLIENT_SECRET,
       // Gmail Refresh Token
       REFRESH_TOKEN = process.env.GMAIL_REFRESH_TOKEN,
+      // Gmail Access Token
       ACCESS_TOKEN = process.env.GMAIL_ACCESS_TOKEN
   } = process.env
   
@@ -35,27 +52,27 @@ const sendMail2Requestor = async (requestorEmail, products, host) => {
     }
   })
 
-  transporter.use('compile', pugEngine({
-    templateDir: process.cwd() + '/views',
-    pretty: true
-  }))
+  const emailTemplate = pug.compileFile(process.cwd() + '/views/email-list.pug')
 
-  return await transporter.sendMail({
-      from: `${process.env.SENDER_NAME} <${SENDER_EMAIL}>`,
-      to: requestorEmail,
-      template: 'email-list',
-      ctx: { products, mail: true, root_url: host },
-      subject: 'Lista de productos',
-      auth: {
-        user: GMAIL_EMAIL,
-        refreshToken: REFRESH_TOKEN,
-        accessToken: ACCESS_TOKEN,
-        expires: 1484314697598
-      }
-  })
+  const mailOptions = {
+    from: `${process.env.SENDER_NAME} <${SENDER_EMAIL}>`,
+    to: await getEmail(),
+    html: emailTemplate({products}),
+    subject: 'Lista de productos',
+    auth: {
+      user: GMAIL_EMAIL,
+      refreshToken: REFRESH_TOKEN,
+      accessToken: ACCESS_TOKEN,
+      expires: 1484314697598
+    }
+  }
+
+  return await transporter.sendMail(mailOptions)
 }
 
 /** Export */
 export default {
-  sendMail2Requestor
+  sendMail2Requestor,
+  getEmail,
+  setEmail
 }

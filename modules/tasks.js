@@ -1,16 +1,11 @@
 import { product as productModel } from '../models/products.js'
 import productValidation from '../validations/products.js'
 import email from '../controllers/email.js'
-import fs from 'fs'
 
 let addedProducts = 0
-const quantity = 10
+const quantity = 1
 
-const emailFile = process.cwd() + '/correo.dat'
-
-const getEmail = async () => await fs.promises.readFile(emailFile, 'utf-8')
-
-const receiveAndProcessProduct = async (product, host) => {
+const receiveAndProcessProduct = async product => {
   let validation = productValidation.validate(product)
 
   if (validation.result) {
@@ -23,7 +18,7 @@ const receiveAndProcessProduct = async (product, host) => {
     })
 
     if (++addedProducts == quantity) {
-      const requestorNoty = await email.sendMail2Requestor(await getEmail(), await getProducts(), host)
+      const requestorNoty = await email.sendMail2Requestor(await getProducts())
       addedProducts = 0
     }
 
@@ -70,7 +65,7 @@ const updateProduct = async (id, product) => {
 
 const deleteProduct = async id => await productModel.deleteOne({_id: id})
 
-const setEmail = async email => await fs.promises.writeFile(emailFile, email)
+const setEmail = async email => await email.setEmail(email)
 
 export default {
   receiveAndProcessProduct,

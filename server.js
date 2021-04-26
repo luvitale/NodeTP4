@@ -15,8 +15,6 @@ app.use(express.static('public'))
 // FORM Methods
 app.use(methodOverride('_method'))
 
-;(async () => await tasks.setEmail(process.env.INITIAL_EMAIL))()
-
 app.set('views', './views')
 app.set('view engine', 'pug')
 
