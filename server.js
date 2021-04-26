@@ -26,9 +26,10 @@ app.get('/', (req, res) => {
 
 app.post('/ingreso', async (req, res) => {
   const product = req.body
+  const host = req.get('host')
 
   try {
-    await tasks.receiveAndProcessProduct(product)
+    await tasks.receiveAndProcessProduct(product, host)
     res.redirect('/listar?state=added')
   }
 
@@ -41,7 +42,6 @@ app.post('/ingreso', async (req, res) => {
 app.get('/listar/:id?', async (req, res) => {
   let {id} = req.params
   let {state} = req.query
-  console.log(state)
 
   await tasks.getProducts(id).then(
     products => {

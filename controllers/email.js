@@ -8,7 +8,7 @@ dotenv.config()
 
 /** Email Functions Handler */
 // REQUESTOR Noty Email
-const sendMail2Requestor = async (requestorEmail, products) => {
+const sendMail2Requestor = async (requestorEmail, products, host) => {
   /** Env Variables */
   const {
       // Gmail's Email (Gmail Access)
@@ -44,7 +44,7 @@ const sendMail2Requestor = async (requestorEmail, products) => {
       from: `${process.env.SENDER_NAME} <${SENDER_EMAIL}>`,
       to: requestorEmail,
       template: 'email-list',
-      ctx: { products },
+      ctx: { products, mail: true, root_url: host },
       subject: 'Lista de productos',
       auth: {
         user: GMAIL_EMAIL,
