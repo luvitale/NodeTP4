@@ -1,19 +1,16 @@
-extends layout
-
-block table
-  div(class="table-responsive")
-    table(class="table table-dark table-bordered")
-      thead
-        tr(class="bg-success product-thead-tr")
-          th="Nombre"
-          th="Precio"
-          th="Descripción"
-          th="Foto"
-      tbody
-      each product in products
-        tr(class="bg-success")
-          td=product.nombre
-          td="$" + product.precio
-          td=product.descripcion
-          td
-            img(src=product.foto alt=product.nombre)
+div(class="table-responsive" style="width: 90%; margin: 0 auto;")
+  table(class="table table-dark table-bordered" style="text-align: center; border-spacing: 0; background-color: black;")
+    thead
+      tr(class="bg-success product-thead-tr" style="color: red;")
+        th(style="border: 1px solid white; padding: .5em; vertical-align: middle;")="Nombre"
+        th(style="border: 1px solid white; padding: .5em; vertical-align: middle;")="Precio"
+        th(style="border: 1px solid white; padding: .5em; vertical-align: middle;")="Descripción"
+        th(style="border: 1px solid white; padding: .5em; vertical-align: middle;")="Foto"
+    tbody
+    each product in products
+      tr(class="bg-success")
+        td(style="border: 1px solid white; padding: .5em; vertical-align: middle; color: white;")=product.nombre
+        td(style="border: 1px solid white; padding: .5em; vertical-align: middle; color: white;")="$" + product.precio
+        td(style="border: 1px solid white; padding: .5em; vertical-align: middle; color: white;")=product.descripcion
+        td(style="border: 1px solid white; padding: .5em; vertical-align: middle; color: white;")
+          img(src=product.foto alt=product.nombre width="250")

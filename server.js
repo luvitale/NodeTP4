@@ -27,7 +27,7 @@ app.post('/ingreso', async (req, res) => {
   const host = req.get('host')
 
   try {
-    await tasks.receiveAndProcessProduct(product, host)
+    tasks.receiveAndProcessProduct(product, host)
     res.redirect('/listar?state=added')
   }
 

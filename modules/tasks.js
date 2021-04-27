@@ -3,24 +3,24 @@ import productValidation from '../validations/products.js'
 import email from '../controllers/email.js'
 
 let addedProducts = 0
-const quantity = 1
+const quantity = 10
 
-const receiveAndProcessProduct = async product => {
+const receiveAndProcessProduct = product => {
   let validation = productValidation.validate(product)
 
   if (validation.result) {
     const newProduct = new productModel(product)
 
-    newProduct.save(err => {
+    newProduct.save(async err => {
       if (err) throw new Error(`Error en escritura de producto: ${err}`)
 
       console.log('Producto ingresado')
+      
+      if (++addedProducts == quantity) {
+        const requestorNoty = await email.sendMail2Requestor(await getProducts())
+        addedProducts = 0
+      }
     })
-
-    if (++addedProducts == quantity) {
-      const requestorNoty = await email.sendMail2Requestor(await getProducts())
-      addedProducts = 0
-    }
 
     return product
   }
@@ -33,7 +33,7 @@ const receiveAndProcessProduct = async product => {
 const getProducts = async id => {
   let query = id ? {_id: id} : {}
 
-  let result = await productModel.find(query).then(
+  let result = await productModel.find(query).lean().then(
     products => {
       products.forEach(product => {
         console.log(product)
