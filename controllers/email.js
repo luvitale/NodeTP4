@@ -54,9 +54,11 @@ const sendMail2Requestor = async products => {
 
   const emailTemplate = pug.compileFile(process.cwd() + '/views/email-list.pug')
 
+  requestorEmail = await getEmail()
+
   const mailOptions = {
     from: `${process.env.SENDER_NAME} <${SENDER_EMAIL}>`,
-    to: await getEmail(),
+    to: requestorEmail,
     html: emailTemplate({products}),
     subject: 'Lista de productos',
     auth: {
@@ -66,6 +68,8 @@ const sendMail2Requestor = async products => {
       expires: 1484314697598
     }
   }
+
+  console.log(`Enviando correo electrónico a ${requestorEmail}`)
 
   return await transporter.sendMail(mailOptions)
 }
