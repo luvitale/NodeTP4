@@ -2,27 +2,24 @@ import { product as productModel } from '../models/products.js'
 import productValidation from '../validations/products.js'
 import email from '../controllers/email.js'
 
-let addedProducts = 0
-const quantity = 10
+const quantityToSendEmail = 10
 
-const receiveAndProcessProduct = product => {
+const receiveAndProcessProduct = async product => {
   let validation = productValidation.validate(product)
 
   if (validation.result) {
     const newProduct = new productModel(product)
 
-    newProduct.save(async err => {
+    await newProduct.save(async err => {
       if (err) throw new Error(`Error en escritura de producto: ${err}`)
 
       console.log('Producto ingresado')
       
-      if (++addedProducts == quantity) {
-        const requestorNoty = await email.sendMail2Requestor(await getProducts())
-        addedProducts = 0
+      let dbProducts = await getProducts()
+      if (dbProducts.length % quantityToSendEmail == 0) {
+        const requestorNoty = await email.sendMail2Requestor(dbProducts)
       }
     })
-
-    return product
   }
 
   else {
