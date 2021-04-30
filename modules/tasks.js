@@ -62,12 +62,9 @@ const updateProduct = async (id, product) => {
 
 const deleteProduct = async id => await productModel.deleteOne({_id: id})
 
-const setEmail = async email => await email.setEmail(email)
-
 export default {
   receiveAndProcessProduct,
   getProducts,
   updateProduct,
-  deleteProduct,
-  setEmail
+  deleteProduct
 }

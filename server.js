@@ -3,6 +3,7 @@ import tasks from './modules/tasks.js'
 import mongoose from 'mongoose'
 import dotenv from 'dotenv-safe'
 import methodOverride from 'method-override'
+import email from './controllers/email.js'
 
 dotenv.config()
 
@@ -62,7 +63,7 @@ app.get('/set-correo', (req, res) => {
 app.post('/set-correo', async (req, res) => {
   let {correo} = req.body
 
-  await tasks.setEmail(correo)
+  await email.setEmail(correo)
 
   res.redirect('/listar')
 })
