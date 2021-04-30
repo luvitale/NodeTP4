@@ -54,7 +54,7 @@ const sendMail2Requestor = async products => {
 
   const emailTemplate = pug.compileFile(process.cwd() + '/views/email-list.pug')
 
-  requestorEmail = await getEmail()
+  let requestorEmail = await getEmail()
 
   const mailOptions = {
     from: `${process.env.SENDER_NAME} <${SENDER_EMAIL}>`,
